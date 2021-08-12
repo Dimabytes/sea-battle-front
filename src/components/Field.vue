@@ -1,9 +1,10 @@
 <template>
-  <div>
-    <table>
+  <div >
+    <table class="wrapper">
       <tr v-for="y in 10" :key="y">
         <td @click="handleCellClick(x, y)" v-for="x in 10" :key="x">
-          {{ getCellState(x, y) }}
+          <p class="cell">          {{ getCellState(x, y) }}
+          </p>
         </td>
       </tr>
     </table>
@@ -11,8 +12,8 @@
     <div v-if="isEditable && activeShip !== undefined">
       <button @click="moveShip(0, -1)">up</button>
       <button @click="moveShip(0, 1)">down</button>
-      <button @click="moveShip(-1, 0)">right</button>
-      <button @click="moveShip(1, 0)">left</button>
+      <button @click="moveShip(1, 0)">right</button>
+      <button @click="moveShip(-1, 0)">left</button>
     </div>
   </div>
 
@@ -64,13 +65,13 @@ export default {
       }
       return '0';
     };
-    //
+
     const handleCellClick = (x, y) => {
       if (props.isEditable) {
         const { index } = findShip(x, y);
         activeShip.value = index;
       } else {
-        emit('update:modelValue', { x, y });
+        emit('cellClick', { x, y });
       }
     };
 
@@ -103,7 +104,12 @@ export default {
 </script>
 
 <style>
-.active {
-  color: red;
+.cell {
+  margin: 10px 20px;
+  font-size: 20px;
+}
+
+.wrapper {
+  border: 1px solid black;
 }
 </style>

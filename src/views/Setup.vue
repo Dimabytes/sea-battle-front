@@ -1,13 +1,49 @@
 <template>
   <div>
-    <field @update:modelValue="update" :is-editable="true" v-model="fieldState"></field>
+    <field :is-editable="true" v-model="fieldState"></field>
+
+    <button @click="handleSubmit">submit plan</button>
+
   </div>
 
 </template>
 
 <script>
 import { ref } from 'vue';
+import { useRouter } from 'vue-router';
 import Field from '@/components/Field.vue';
+
+const initialField = {
+  ships: [
+    [
+      {
+        x: 3,
+        y: 3,
+      },
+    ],
+    [
+      {
+        x: 5,
+        y: 7,
+      },
+      {
+        x: 5,
+        y: 8,
+      },
+    ],
+    [
+      {
+        x: 1,
+        y: 1,
+      },
+      {
+        x: 1,
+        y: 2,
+      },
+    ],
+  ],
+  hitCells: [],
+};
 
 export default {
   name: 'Setup',
@@ -15,47 +51,16 @@ export default {
     Field,
   },
   setup() {
-    const fieldState = ref({
-      ships: [
-        [
-          {
-            x: 5,
-            y: 7,
-            hit: false,
-          },
-          {
-            x: 5,
-            y: 8,
-            hit: false,
-          },
-        ],
-        //
-        // [
-        //   {
-        //     x: 1,
-        //     y: 1,
-        //     hit: true,
-        //   },
-        //   {
-        //     x: 1,
-        //     y: 2,
-        //     hit: true,
-        //   },
-        // ],
-      ],
-      hitCells: [
-        {
-          x: 6,
-          y: 2,
-        },
-      ],
-    });
+    const fieldState = ref(initialField);
+    const router = useRouter();
 
-    const update = (newValue) => {
-      console.log(newValue);
+    const handleSubmit = () => {
+      router.push({
+        name: 'Game',
+      });
     };
 
-    return { fieldState, update };
+    return { fieldState, handleSubmit };
   },
 };
 </script>
