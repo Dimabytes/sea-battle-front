@@ -4,12 +4,17 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    component: import(/* webpackChunkName: "home" */ '../views/Home.vue'),
+    component: () => import(/* webpackChunkName: "home" */ '../views/Home.vue'),
+  },
+  {
+    path: '/waitAllConnected',
+    name: 'WaitAllConnected',
+    component: () => import(/* webpackChunkName: "WaitAllConnected" */ '../views/WaitAllConnected.vue'),
   },
   {
     path: '/setup',
     name: 'Setup',
-    component: () => import(/* webpackChunkName: "about" */ '../views/Setup.vue'),
+    component: () => import(/* webpackChunkName: "setup" */ '../views/Setup.vue'),
   },
   {
     path: '/game',

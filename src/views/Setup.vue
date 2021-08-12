@@ -1,8 +1,10 @@
 <template>
   <div>
+
     <field :is-editable="true" v-model="fieldState"></field>
 
-    <button @click="handleSubmit">submit plan</button>
+    <button v-if="!isWaitOtherPlayer" @click="handleSubmit">submit plan</button>
+    <p v-else>wait for other player</p>
 
   </div>
 
@@ -11,7 +13,9 @@
 <script>
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
+import { useStore } from 'vuex';
 import Field from '@/components/Field.vue';
+import { battleService } from '@/services/battleService';
 
 const initialField = {
   ships: [
@@ -53,14 +57,28 @@ export default {
   setup() {
     const fieldState = ref(initialField);
     const router = useRouter();
+    const { state } = useStore();
 
-    const handleSubmit = () => {
-      router.push({
-        name: 'Game',
-      });
+    const isWaitOtherPlayer = ref(false);
+
+    const updateIsFieldsReady = async () => {
+      const res = await battleService.isFieldsReady();
+      if (res.data.isFieldsReady) {
+        await router.push({
+          name: 'Game',
+        });
+      } else {
+        setTimeout(updateIsFieldsReady, 3000);
+      }
     };
 
-    return { fieldState, handleSubmit };
+    const handleSubmit = async () => {
+      isWaitOtherPlayer.value = true;
+      await battleService.setField(state.userId, fieldState.value.ships);
+      updateIsFieldsReady();
+    };
+
+    return { fieldState, handleSubmit, isWaitOtherPlayer };
   },
 };
 </script>

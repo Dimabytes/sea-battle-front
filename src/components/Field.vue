@@ -2,8 +2,8 @@
   <div >
     <table class="wrapper">
       <tr v-for="y in 10" :key="y">
-        <td @click="handleCellClick(x, y)" v-for="x in 10" :key="x">
-          <p class="cell">          {{ getCellState(x, y) }}
+        <td @click="handleCellClick(x - 1, y - 1)" v-for="x in 10" :key="x">
+          <p class="cell"> {{ getCellState(x - 1, y - 1) }}
           </p>
         </td>
       </tr>

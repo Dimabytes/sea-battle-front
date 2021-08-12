@@ -1,5 +1,7 @@
 # sea-battle-front
 
+https://i594-sea-battle.herokuapp.com/swagger/
+
 ## Project setup
 ```
 yarn install
@@ -19,6 +21,3 @@ yarn build
 ```
 yarn lint
 ```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
