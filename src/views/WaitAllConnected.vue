@@ -1,5 +1,5 @@
 <template>
-<div>
+<div class="wrapper">
   <h1>loading...</h1>
 </div>
 </template>

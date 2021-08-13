@@ -1,7 +1,20 @@
 <template>
-  <div>
-    <h1>Добро пожаловать в морской бой</h1>
-    <button @click="handleGameStart">Начать игру</button>
+  <div class="wrapper">
+    <a-row type="flex" align="middle" :gutter="[32,16]">
+      <a-col span="10">
+        <img src="@/assets/ship.svg" alt="pirate-ship">
+      </a-col>
+      <a-col span="8" offset="6">
+        <base-button @click="handleGameStart" title="Начать"/>
+      </a-col>
+    </a-row>
+    <a-row type="flex"  align="middle" :gutter="[32,16]">
+      <a-col span="10">
+        <h1 class="main-title">
+          Морской Бой 2021
+        </h1>
+      </a-col>
+    </a-row>
   </div>
 </template>
 
@@ -9,9 +22,13 @@
 import { useRouter } from 'vue-router';
 import { useStore } from 'vuex';
 import { battleService } from '@/services/battleService';
+import BaseButton from '@/components/Button.vue';
 
 export default {
   name: 'Home',
+  components: {
+    BaseButton,
+  },
   setup() {
     const store = useStore();
 
@@ -30,3 +47,14 @@ export default {
   },
 };
 </script>
+
+<style lang="scss">
+.main-title {
+  font-size: 104px;
+  line-height: 140px;
+  text-shadow: -12px 12px 0px #002F6C;
+  color: #01579B;
+  letter-spacing: 2px;
+  margin-bottom: 0;
+}
+</style>
