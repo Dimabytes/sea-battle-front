@@ -3,10 +3,8 @@
 </template>
 
 <style lang="scss">
-@import url('https://fontlibrary.org//face/press-start-2p');
-
 * {
-  font-family: 'Press start 2P';
+  font-family: 'Press Start 2P', cursive;
 }
 
 body {

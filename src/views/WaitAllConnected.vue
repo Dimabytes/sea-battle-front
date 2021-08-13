@@ -1,6 +1,13 @@
 <template>
 <div class="wrapper">
-  <h1>loading...</h1>
+  <a-row type="flex" justify="center" align="middle" :gutter="[32,16]">
+    <img src="@/assets/wheel.svg" alt="wheel" class="wheel">
+  </a-row>
+  <a-row type="flex" justify="center" align="middle" :gutter="[32,16]">
+    <span class="loading-text">
+      загрузка
+    </span>
+  </a-row>
 </div>
 </template>
 
@@ -35,6 +42,19 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
+.wheel {
+  -webkit-animation:spin 4s linear infinite;
+  -moz-animation:spin 4s linear infinite;
+  animation:spin 4s linear infinite;
+}
 
+@-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
+@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
+
+.loading-text {
+  font-size: 64px;
+  color: #002f6c;
+}
 </style>
