@@ -19,4 +19,15 @@ body {
   padding: 0 15%;
   overflow: hidden;
 }
+
+.mb-50 {
+  margin-bottom: 50px;
+}
+
+.text {
+  text-align: center;
+  font-size: 27px;
+  color: #002F6C;
+}
+
 </style>

@@ -82,7 +82,7 @@ export default {
   },
   emits: ['cellClick', 'update:modelValue'],
   setup(props, { emit }) {
-    const activeShip = ref(0);
+    const activeShip = ref(props.isEditable ? 0 : undefined);
 
     const findShip = (x, y) => {
       for (const [index, ship] of props.modelValue.ships.entries()) {
@@ -160,6 +160,7 @@ export default {
   width: 50px;
   height: 50px;
   background: #01579B;
+  text-align: center;
 }
 
 .ship-cell {
@@ -185,17 +186,21 @@ td {
   border: 3px dotted #BA6B6C;
 }
 
+.enemy .field-wrapper {
+  justify-content: flex-end;
+}
+
 .field {
   &.game {
     & .field-header {
-      width: 45px;
-      height: 45px;
-      font-size: 23px;
+      width: 34px;
+      height: 34px;
+      font-size: 20px;
     }
 
     & .cell {
-      width: 45px;
-      height: 45px;
+      width: 34px;
+      height: 34px;
     }
   }
 

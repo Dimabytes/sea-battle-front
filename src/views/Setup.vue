@@ -23,7 +23,7 @@
       <a-col span="12">
         <div class="pirate mb-50">
           <img src="@/assets/player.svg" alt="kind-pirate">
-          <span class="text">Джек Воробей</span>
+          <span class="text">{{ playerName }}</span>
         </div>
       </a-col>
     </a-row>
@@ -36,7 +36,7 @@
 </template>
 
 <script>
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import { useRouter } from 'vue-router';
 import { useStore } from 'vuex';
 import Field from '@/components/Field.vue';
@@ -82,6 +82,7 @@ export default {
     BaseButton,
   },
   setup() {
+    const store = useStore();
     const fieldState = ref(initialField);
     const router = useRouter();
     const { state } = useStore();
@@ -105,7 +106,23 @@ export default {
       updateIsFieldsReady();
     };
 
-    return { fieldState, handleSubmit, isWaitOtherPlayer };
+    const playerName = computed(() => {
+      const pirateNames = [
+        'Ситцевый Джек',
+        'Джек Воробей',
+        'Чёрный Сэм',
+        'Сэр Френсис Дрейк',
+        'Долговязый Бен',
+      ];
+
+      return pirateNames[Math.floor(Math.random() * pirateNames.length)];
+    });
+
+    store.commit('setPlayerName', playerName);
+
+    return {
+      fieldState, handleSubmit, isWaitOtherPlayer, playerName,
+    };
   },
 };
 </script>
@@ -121,19 +138,8 @@ export default {
   }
 }
 
-.text {
-  text-align: center;
-  font-size: 27px;
-  color: #002F6C;
-  margin-left: 20px;
-}
-
 .waiting-text {
   text-align: left;
   padding-left: 50px;
-}
-
-.mb-50 {
-  margin-bottom: 50px;
 }
 </style>

@@ -1,11 +1,29 @@
 <template>
   <div class="wrapper">
-    <h1 v-if="gameState.isYourTurn">now is your turn</h1>
-    <h1 v-else>enemy turn</h1>
+    <a-row type="flex" align="middle" :gutter="[32,16]">
+      <a-col span="6" class="pirate-block mb-50">
+        <img src="@/assets/player.svg" alt="kind-pirate">
+        <span class="name">{{ playerName }}</span>
+      </a-col>
+
+      <a-col span="12">
+        <h1 v-if="gameState.isYourTurn" class="text">твой ход</h1>
+        <h1 v-else class="text">ход противника</h1>
+      </a-col>
+
+      <a-col span="6" class="pirate-block enemy-block mb-50">
+        <img src="@/assets/enemy.svg" alt="evil-pirate">
+        <span class="name">Злейший Враг</span>
+      </a-col>
+    </a-row>
 
     <a-row>
-      <field v-model="myField" :game="true"/>
-      <field @cell-click="handleHit" v-model="enemyField" :game="true"/>
+      <a-col span="12">
+        <field v-model="myField" :game="true"/>
+      </a-col>
+      <a-col span="12 enemy">
+        <field @cell-click="handleHit" v-model="enemyField" :game="true"/>
+      </a-col>
     </a-row>
 
     <h1 v-if="isGameOver">game over</h1>
@@ -26,6 +44,7 @@ export default {
     Field,
   },
   setup() {
+    const store = useStore();
     const gameState = ref({ isGameOverFlag: false, isYourTurn: false });
     const isGameOver = ref(false);
     const enemyField = ref({ ships: [], hitCells: [] });
@@ -75,13 +94,32 @@ export default {
       }
     });
 
+    const playerName = store.getters.getPlayerName;
+
     return {
-      gameState, enemyField, handleHit, isGameOver, myField,
+      gameState, enemyField, handleHit, isGameOver, myField, playerName,
     };
   },
 };
 </script>
 
-<style scoped>
+<style lang="scss">
+.pirate-block {
+  display: flex;
+  flex-direction: column;
 
+  & img {
+    height: 150px;
+  }
+}
+
+.enemy-block {
+  justify-content: flex-end;
+}
+
+.name {
+  color: #002F6C;
+  font-size: 18px;
+  text-align: center;
+}
 </style>
