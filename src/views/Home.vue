@@ -5,7 +5,7 @@
         <img src="@/assets/ship.svg" alt="pirate-ship">
       </a-col>
       <a-col span="8" offset="6">
-        <base-button @click="handleGameStart" title="Начать"/>
+        <base-button @click="handleGameStart" size="big">начать</base-button>
       </a-col>
     </a-row>
     <a-row type="flex"  align="middle" :gutter="[32,16]">
@@ -22,7 +22,7 @@
 import { useRouter } from 'vue-router';
 import { useStore } from 'vuex';
 import { battleService } from '@/services/battleService';
-import BaseButton from '@/components/Button.vue';
+import BaseButton from '@/components/BaseButton.vue';
 
 export default {
   name: 'Home',
@@ -33,6 +33,7 @@ export default {
     const store = useStore();
 
     const router = useRouter();
+    // eslint-disable-next-line no-unused-vars
     const handleGameStart = async () => {
       const res = await battleService.connect();
       if (res.data.code === 1) {

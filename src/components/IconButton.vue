@@ -1,35 +1,27 @@
 <template>
-<a-button :disabled="disabled" @click="$emit('click')">{{ title }}</a-button>
+<button class="icon-button">
+  <slot/>
+</button>
 </template>
 
 <script>
 export default {
-  name: 'BaseButton',
-  props: {
-    disabled: {
-      type: Boolean,
-      default: false,
-    },
-    title: {
-      type: String,
-      required: true,
-    },
-  },
+  name: 'IconButton',
 };
 </script>
 
 <style scoped lang="scss">
-.ant-btn {
-  font-size: 42px;
-  line-height: 42px;
+.icon-button {
   background: #01579B;
-  box-shadow: -12px 12px 0px #002F6C;
+  box-shadow: -12px 12px 0px #002f6c;
   text-transform: lowercase;
   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
   border-color: #01579B;
   color: #fff;
-  height: 100px;
-  padding: 30px;
+  height: 90px;
+  padding: 0 10px 10px 10px;
+  width: 90px;
+  font-size: 50px;
 
   &:hover {
     background: #002F6C;

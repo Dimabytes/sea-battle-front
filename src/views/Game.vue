@@ -1,10 +1,12 @@
 <template>
-  <div>
+  <div class="wrapper">
     <h1 v-if="gameState.isYourTurn">now is your turn</h1>
     <h1 v-else>enemy turn</h1>
 
-    <field v-model="myField"/>
-    <field @cell-click="handleHit" v-model="enemyField"/>
+    <a-row>
+      <field v-model="myField" :game="true"/>
+      <field @cell-click="handleHit" v-model="enemyField" :game="true"/>
+    </a-row>
 
     <h1 v-if="isGameOver">game over</h1>
 

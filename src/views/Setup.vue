@@ -1,13 +1,38 @@
 <template>
-  <div>
+  <div class="wrapper">
+    <a-row :gutter="[32,16]" type="flex" justify="center" align="bottom">
+      <a-col span="12">
+        <div
+          v-if="!isWaitOtherPlayer"
+          class="mb-50"
+        >
+          <base-button
+            @click="handleSubmit"
+          >
+            играть
+          </base-button>
+        </div>
 
-    <field :is-editable="true" v-model="fieldState"></field>
-
-    <button v-if="!isWaitOtherPlayer" @click="handleSubmit">submit plan</button>
-    <p v-else>wait for other player</p>
-
+          <p
+            class="text waiting-text mb-50"
+            v-else
+          >
+            ждём соперника...
+          </p>
+      </a-col>
+      <a-col span="12">
+        <div class="pirate mb-50">
+          <img src="@/assets/player.svg" alt="kind-pirate">
+          <span class="text">Джек Воробей</span>
+        </div>
+      </a-col>
+    </a-row>
+    <a-row type="flex" align="middle" :gutter="[32,16]">
+      <a-col span="24">
+        <field :is-editable="true" v-model="fieldState"></field>
+      </a-col>
+    </a-row>
   </div>
-
 </template>
 
 <script>
@@ -16,6 +41,7 @@ import { useRouter } from 'vue-router';
 import { useStore } from 'vuex';
 import Field from '@/components/Field.vue';
 import { battleService } from '@/services/battleService';
+import BaseButton from '@/components/BaseButton.vue';
 
 const initialField = {
   ships: [
@@ -53,6 +79,7 @@ export default {
   name: 'Setup',
   components: {
     Field,
+    BaseButton,
   },
   setup() {
     const fieldState = ref(initialField);
@@ -83,6 +110,30 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss">
+.pirate {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
 
+  img {
+    height: 150px;
+  }
+}
+
+.text {
+  text-align: center;
+  font-size: 27px;
+  color: #002F6C;
+  margin-left: 20px;
+}
+
+.waiting-text {
+  text-align: left;
+  padding-left: 50px;
+}
+
+.mb-50 {
+  margin-bottom: 50px;
+}
 </style>
