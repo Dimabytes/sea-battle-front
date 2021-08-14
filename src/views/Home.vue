@@ -6,6 +6,8 @@
       </a-col>
       <a-col span="8" offset="6">
         <base-button @click="handleGameStart" size="big">начать</base-button>
+
+        <p class="error" v-if="errorText">{{errorText}}</p>
       </a-col>
     </a-row>
     <a-row type="flex"  align="middle" :gutter="[32,16]">
@@ -21,6 +23,7 @@
 <script>
 import { useRouter } from 'vue-router';
 import { useStore } from 'vuex';
+import { ref } from 'vue';
 import { battleService } from '@/services/battleService';
 import BaseButton from '@/components/BaseButton.vue';
 
@@ -31,6 +34,7 @@ export default {
   },
   setup() {
     const store = useStore();
+    const errorText = ref(null);
 
     const router = useRouter();
     // eslint-disable-next-line no-unused-vars
@@ -41,10 +45,12 @@ export default {
         await router.push({
           name: 'WaitAllConnected',
         });
+      } else {
+        errorText.value = 'Игра уже идет, попробуйте позже';
       }
     };
 
-    return { handleGameStart };
+    return { handleGameStart, errorText };
   },
 };
 </script>
@@ -57,5 +63,9 @@ export default {
   color: #01579B;
   letter-spacing: 2px;
   margin-bottom: 0;
+}
+.error {
+  color: red;
+  margin-top: 20px;
 }
 </style>
